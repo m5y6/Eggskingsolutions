@@ -14,17 +14,16 @@ import java.util.List;
 public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
-
     public List<Usuario> findAll(){
         return usuarioRepository.findAll();
     }
-    public Usuario findById(String rut){
-        return usuarioRepository.findByRut(rut);
+    public Usuario findById(long id){
+        return usuarioRepository.findById(id).get();
     }
     public Usuario save(Usuario usuario){
         return usuarioRepository.save(usuario);
     }
-    public void delete(String rut){
-        usuarioRepository.deleteByRut(rut);
+    public void delete(Long id){
+        usuarioRepository.deleteById(id);
     }
 }
