@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class Usuario {
+public class Usuario {
 
     @Id
     @Column(nullable = false,length = 10,unique = true)
