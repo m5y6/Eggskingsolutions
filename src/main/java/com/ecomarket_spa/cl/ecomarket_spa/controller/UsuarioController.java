@@ -3,10 +3,9 @@ package com.ecomarket_spa.cl.ecomarket_spa.controller;
 import com.ecomarket_spa.cl.ecomarket_spa.model.Usuario;
 import com.ecomarket_spa.cl.ecomarket_spa.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,4 +23,36 @@ public class UsuarioController {
         }
         return  ResponseEntity.ok(usuarios);
     }
+    @PostMapping
+    public ResponseEntity<Usuario> guardar(@RequestBody Usuario usuario){
+        Usuario usuarioNuevo = usuarioService.save(usuario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioNuevo);
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Usuario> buscar(@PathVariable Long id){
+        try{
+            Usuario usuario = usuarioService.findById(id);
+            return ResponseEntity.ok(usuario);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @PutMapping("/{rut}")
+    public ResponseEntity<Usuario> actualizar(@PathVariable String rut, @RequestBody Usuario usuario,@PathVariable Integer id) {
+        try {
+            Usuario usu = usuarioService.findById(id);
+            usu.setRut(rut);
+            usu.setRol(usuario.getRol());
+            usu.setApellido(usuario.getApellido());
+            usu.setNombre(usuario.getNombre());
+            usu.setCorreo(usuario.getCorreo());
+            usu.setContra(usuario.getContra());
+
+            usuarioService.save(usu);
+            return ResponseEntity.ok(usuario);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
