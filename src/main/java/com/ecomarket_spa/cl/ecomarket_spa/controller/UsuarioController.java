@@ -37,11 +37,12 @@ public class UsuarioController {
             return ResponseEntity.notFound().build();
         }
     }
-    @PutMapping("/{rut}")
-    public ResponseEntity<Usuario> actualizar(@PathVariable String rut, @RequestBody Usuario usuario,@PathVariable Integer id) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Usuario> actualizar(@PathVariable Long id, @RequestBody Usuario usuario) {
         try {
             Usuario usu = usuarioService.findById(id);
-            usu.setRut(rut);
+            usu.setId(id);
+            usu.setRut(usu.getRut());
             usu.setRol(usuario.getRol());
             usu.setApellido(usuario.getApellido());
             usu.setNombre(usuario.getNombre());
@@ -51,6 +52,15 @@ public class UsuarioController {
             usuarioService.save(usu);
             return ResponseEntity.ok(usuario);
         } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> eliminar(@PathVariable long id){
+        try{
+            usuarioService.delete(id);
+            return ResponseEntity.noContent().build();
+        }catch (Exception e){
             return ResponseEntity.notFound().build();
         }
     }

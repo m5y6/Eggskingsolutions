@@ -26,7 +26,7 @@ public class Producto {
     @Column(nullable = false)
     private Integer stock;
 
-    @Column(nullable = true, length = 30)
+    @Column(nullable = true, length = 51)
     private String descripcion;
 
 
