@@ -1,0 +1,30 @@
+INSERT INTO producto (nombre, precio, stock, descripcion) VALUES
+('Arroz Integral', 1990, 150, 'Arroz integral 1kg'),
+('Aceite de Oliva Extra Virgen', 5990, 80, 'Botella 500ml'),
+('Leche de Almendras', 2590, 120, 'Envase 1 litro'),
+('Harina de Trigo Integral', 1890, 200, 'Bolsa 1kg'),
+('Miel Natural', 3990, 65, 'Frasco 250g'),
+('Quinoa Real', 3490, 90, 'Bolsa 500g'),
+('Galletas de Avena', 2490, 180, 'Pack x6 unidades'),
+('Pasta Integral', 1790, 110, 'Pack 500g'),
+('Chocolate Negro 70%', 2990, 75, 'Tableta 100g'),
+('Maní Tostado Sin Sproductosal', 1590, 200, 'Bolsa 250g');
+
+INSERT INTO roles (nombre, descripcion, permisos) VALUES
+('Administrador', 'Rol con todos los permisos del sistema', '{"dashboard": true, "usuarios": {"crear": true, "leer": true, "actualizar": true, "eliminar": true}, "productos": {"crear": true, "leer": true, "actualizar": true, "eliminar": true}, "pedidos": {"crear": true, "leer": true, "actualizar": true, "eliminar": true}}'),
+('Vendedor', 'Rol para personal de ventas', '{"dashboard": true, "productos": {"crear": false, "leer": true, "actualizar": false, "eliminar": false}, "pedidos": {"crear": true, "leer": true, "actualizar": true, "eliminar": false}}'),
+('Cliente', 'Rol para clientes del ecommerce', '{"dashboard": false, "productos": {"crear": false, "leer": true, "actualizar": false, "eliminar": false}, "pedidos": {"crear": true, "leer": true, "actualizar": false, "eliminar": false}}'),
+('Repartidor', 'Rol para personal de reparto', '{"dashboard": false, "pedidos": {"crear": false, "leer": true, "actualizar": true, "eliminar": false}}'),
+('Inventario', 'Rol para personal de bodega e inventario', '{"dashboard": false, "productos": {"crear": true, "leer": true, "actualizar": true, "eliminar": false}}');
+
+INSERT INTO usuario (rut, correo, contra, nombre, apellido, rol_id) VALUES
+('12345678-9', 'admin@ecomarket.com', 'Admin123', 'Juan', 'Pérez', 1),
+('98765432-1', 'vendedor1@ecomarket.com', 'Vendedor123', 'María', 'González', 2),
+('45678901-2', 'vendedor2@ecomarket.com', 'Vendedor456', 'Carlos', 'López', 2),
+('78901234-5', 'cliente1@ecomarket.com', 'Cliente123', 'Ana', 'Martínez', 3),
+('23456789-0', 'cliente2@ecomarket.com', 'Cliente456', 'Pedro', 'Sánchez', 3),
+('56789012-3', 'cliente3@ecomarket.com', 'Cliente789', 'Laura', 'Rodríguez', 3),
+('89012345-6', 'repartidor1@ecomarket.com', 'Repartidor123', 'Diego', 'Fernández', 4),
+('34567890-1', 'repartidor2@ecomarket.com', 'Repartidor456', 'Sofía', 'Díaz', 4),
+('67890123-4', 'inventario1@ecomarket.com', 'Inventario123', 'Pablo', 'Ruiz', 5),
+('90123456-7', 'inventario2@ecomarket.com', 'Inventario456', 'Elena', 'Torres', 5);
