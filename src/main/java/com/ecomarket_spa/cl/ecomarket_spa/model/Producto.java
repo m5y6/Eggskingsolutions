@@ -3,14 +3,17 @@ package com.ecomarket_spa.cl.ecomarket_spa.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name="producto")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Producto {
 
     @Id
@@ -26,7 +29,7 @@ public class Producto {
     @Column(nullable = false)
     private Integer stock;
 
-    @Column(nullable = true, length = 51)
+    @Column(nullable = true, length = 100)
     private String descripcion;
 
 
