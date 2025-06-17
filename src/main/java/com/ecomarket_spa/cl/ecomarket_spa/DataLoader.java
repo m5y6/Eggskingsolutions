@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Random;
 
-@Profile("dev")
+@Profile("test")
 @Component
 public class DataLoader implements CommandLineRunner {
 
