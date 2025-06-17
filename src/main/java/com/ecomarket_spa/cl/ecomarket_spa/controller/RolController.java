@@ -1,10 +1,15 @@
 package com.ecomarket_spa.cl.ecomarket_spa.controller;
 
+import com.ecomarket_spa.cl.ecomarket_spa.model.Producto;
 import com.ecomarket_spa.cl.ecomarket_spa.model.Rol;
 import com.ecomarket_spa.cl.ecomarket_spa.model.Usuario;
 import com.ecomarket_spa.cl.ecomarket_spa.service.RolService;
 import com.ecomarket_spa.cl.ecomarket_spa.service.RolService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +27,12 @@ public class RolController {
 
     @GetMapping
     @Operation(summary = "Listar roles", description = "Obtiene una lista de todos los roles disponibles")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de roles obtenida correctamente",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Producto.class))),
+            @ApiResponse(responseCode = "404", description = "no se encontraron roles")
+    })
     public ResponseEntity<List<Rol>> listar(){
         List<Rol>roles =rolService.findAll();
         if (roles.isEmpty()){
@@ -32,6 +43,10 @@ public class RolController {
 
     @PostMapping
     @Operation(summary = "Guardar rol", description = "Crea un nuevo rol en el sistema")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "rol creado correctmente"),
+            @ApiResponse(responseCode = "404", description = "rol no se creo")
+    })
     public ResponseEntity<Rol> guardar(@RequestBody Rol rol){
         Rol rolNuevo = rolService.save(rol);
         return ResponseEntity.status(HttpStatus.CREATED).body(rol);
@@ -39,6 +54,12 @@ public class RolController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Buscar rol por ID", description = "Obtiene un rol específico por su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Rol encontrado correctamente",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Rol.class))),
+            @ApiResponse(responseCode = "404", description = "Rol no encontrado")
+    })
     public ResponseEntity<Rol> buscar(@PathVariable Long id){
         try{
             Rol rol = rolService.findById(id);
@@ -50,6 +71,12 @@ public class RolController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar rol", description = "Actualiza los detalles de un rol existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Rol actualizado correctamente",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Rol.class))),
+            @ApiResponse(responseCode = "404", description = "Rol no encontrado")
+    })
     public ResponseEntity<Rol> actualizar(@PathVariable Long id, @RequestBody Rol rol) {
         try {
             Rol roll = rolService.findById(id);

@@ -50,6 +50,12 @@ public class ProductoController {
     }
     @GetMapping("/{id}")
     @Operation(summary = "Buscar producto por ID", description = "Obtiene un producto específico por su ID")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Producto encontrado correctamente",
+                content = @Content(mediaType = "application/json",
+                        schema = @Schema(implementation = Producto.class))),
+        @ApiResponse(responseCode = "404", description = "Producto no encontrado")
+    })
     public ResponseEntity<Producto> buscar(@PathVariable Integer id){
         try{
             Producto producto = productoService.findById(id);
@@ -60,6 +66,12 @@ public class ProductoController {
     }
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar producto", description = "Actualiza los detalles de un producto existente")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Producto actualizado correctamente",
+                content = @Content(mediaType = "application/json",
+                        schema = @Schema(implementation = Producto.class))),
+        @ApiResponse(responseCode = "404", description = "Producto no encontrado")
+    })
     public ResponseEntity<Producto> actualizar(@PathVariable Integer id, @RequestBody Producto producto) {
         try {
             Producto prod = productoService.findById(id);
@@ -78,6 +90,10 @@ public class ProductoController {
     }
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar producto", description = "Elimina un producto del sistema por su ID")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "204", description = "Producto eliminado correctamente"),
+        @ApiResponse(responseCode = "404", description = "Producto no encontrado")
+    })
     public ResponseEntity<?> eliminar(@PathVariable Long id){
         try{
             productoService.delete(id);
